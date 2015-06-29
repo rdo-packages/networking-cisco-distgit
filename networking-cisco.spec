@@ -2,7 +2,7 @@
 
 Name: openstack-%{service}
 Version:    XXX
-Release:    XXX{?dist}
+Release:    XXX
 Summary: Networking Cisco contains the Cisco vendor code for Openstack Neutron
 
 Group: Development/Libraries
