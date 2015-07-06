@@ -1,54 +1,87 @@
-%global service networking-cisco
+%global vendor Cisco
+%global srcname networking_cisco
+%global package_name networking-cisco
+%global docpath doc/build/html
 
-Name: openstack-%{service}
-Version:    XXX
-Release:    XXX
-Summary: Networking Cisco contains the Cisco vendor code for Openstack Neutron
+Name:           python-%{package_name}
+Version:        2015.1.0
+Release:        1%{?dist}
+Summary:        %{vendor} OpenStack Neutron driver
 
-Group: Development/Libraries
-License: ASL 2.0
-Vendor: Cisco Systems <openstack-networking@cisco.com>
-Url: http://docs.openstack.org/developer/%{service}
+License:        ASL 2.0
+URL:            https://pypi.python.org/pypi/%{package_name}
+Source0:        https://pypi.python.org/packages/source/n/networking-cisco/networking-cisco-2015.1.2.tar.gz
+Source1:        neutron-cisco-cfg-agent.service
 
-BuildRoot: %{_tmppath}/%{service}-%{version}-%{release}-buildroot
-Prefix: %{_prefix}
-BuildArch: noarch
+BuildArch:      noarch
+BuildRequires:  python2-devel
+BuildRequires:  python-mock
+BuildRequires:  python-neutron-tests
+BuildRequires:  python-oslo-sphinx
+BuildRequires:  python-pbr
+BuildRequires:  python-setuptools
+BuildRequires:  python-sphinx
+BuildRequires:  python-testrepository
+BuildRequires:  python-testtools
+BuildRequires:	systemd-units
 
-Source0: http://tarballs.openstack.org/%{service}/%{service}-master.tar.gz
-Source1:	neutron-cisco-cfg-agent.service
+Requires:       python-babel
+Requires:       python-pbr
+Requires:       openstack-neutron-common
+
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
 
 %description
-Networking Cisco contains the Cisco vendor code for Openstack Neutron
-* Documentation: http://docs.openstack.org/developer/%{service}
-* Source: http://git.openstack.org/cgit/openstack/%{service}
-* Bugs: http://bugs.launchpad.net/%{service}
-
+This package contains %{vendor} networking driver for OpenStack Neutron.
 
 %prep
-%setup -q -n %{service}-%{upstream_version}
+%setup -q -n %{package_name}-%{upstream_version}
 
 %build
-python setup.py build
+%{__python2} setup.py build
+%{__python2} setup.py build_sphinx
+rm %{docpath}/.buildinfo
 
 %install
-python setup.py install --single-version-externally-managed -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+export PBR_VERSION=%{version}
+export SKIP_PIP_INSTALL=1
+%{__python2} setup.py install --skip-build --root $RPM_BUILD_ROOT
+install -d -m 755 %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/ml2_conf_cisco.ini %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/ml2_conf_ncs.ini %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/cisco_cfg_agent.ini %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/cisco_plugins.ini %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/cisco_router_plugin.ini %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/cisco_vpn_agent.ini %{buildroot}%{_sysconfdir}/neutron/
 
 # Install systemd units
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 
-%files -f INSTALLED_FILES
+%files
 %license LICENSE
-%doc networking_cisco/plugins/cisco/README
+%doc README.rst
+%doc %{docpath}
+%{python2_sitelib}/%{srcname}
+%{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/ml2_conf_cisco.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/ml2_conf_ncs.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_cfg_agent.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_plugins.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_router_plugin.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_vpn_agent.ini
+%{_bindir}/neutron-cisco-cfg-agent
 %{_unitdir}/neutron-cisco-cfg-agent.service
-%defattr(-,root,root)
 
+
+%post
+%systemd_post neutron-cisco-cfg-agent.service
 
 %preun
 %systemd_preun neutron-cisco-cfg-agent.service
-
 
 %postun
 %systemd_postun_with_restart neutron-cisco-cfg-agent.service
