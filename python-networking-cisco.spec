@@ -3,9 +3,11 @@
 %global package_name networking-cisco
 %global docpath doc/build/html
 
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+
 Name:           python-%{package_name}
-Version:        2015.1.0
-Release:        1%{?dist}
+Version:        XXX
+Release:        XXX
 Summary:        %{vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
@@ -75,3 +77,5 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 
 %postun
 %systemd_postun_with_restart neutron-cisco-cfg-agent.service
+
+%changelog
