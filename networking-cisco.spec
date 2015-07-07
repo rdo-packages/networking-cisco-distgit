@@ -49,12 +49,7 @@ export PBR_VERSION=%{version}
 export SKIP_PIP_INSTALL=1
 %{__python2} setup.py install --skip-build --root $RPM_BUILD_ROOT
 install -d -m 755 %{buildroot}%{_sysconfdir}/neutron/
-mv %{buildroot}/usr/etc/neutron/ml2_conf_cisco.ini %{buildroot}%{_sysconfdir}/neutron/
-mv %{buildroot}/usr/etc/neutron/ml2_conf_ncs.ini %{buildroot}%{_sysconfdir}/neutron/
-mv %{buildroot}/usr/etc/neutron/cisco_cfg_agent.ini %{buildroot}%{_sysconfdir}/neutron/
-mv %{buildroot}/usr/etc/neutron/cisco_plugins.ini %{buildroot}%{_sysconfdir}/neutron/
-mv %{buildroot}/usr/etc/neutron/cisco_router_plugin.ini %{buildroot}%{_sysconfdir}/neutron/
-mv %{buildroot}/usr/etc/neutron/cisco_vpn_agent.ini %{buildroot}%{_sysconfdir}/neutron/
+mv %{buildroot}/usr/etc/neutron/*.ini %{buildroot}%{_sysconfdir}/neutron/
 
 # Install systemd units
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
@@ -67,12 +62,7 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %doc %{docpath}
 %{python2_sitelib}/%{srcname}
 %{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
-%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/ml2_conf_cisco.ini
-%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/ml2_conf_ncs.ini
-%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_cfg_agent.ini
-%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_plugins.ini
-%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_router_plugin.ini
-%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/cisco_vpn_agent.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/*.ini
 %{_bindir}/neutron-cisco-cfg-agent
 %{_unitdir}/neutron-cisco-cfg-agent.service
 
