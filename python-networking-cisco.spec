@@ -14,6 +14,8 @@ License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{package_name}
 Source0:        https://pypi.python.org/packages/source/n/networking-cisco/networking-cisco-2015.1.2.tar.gz
 Source1:        neutron-cisco-cfg-agent.service
+Source2:        neutron-cisco-apic-host-agent.service
+Source3:        neutron-cisco-apic-service-agent.service
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -49,12 +51,14 @@ rm %{docpath}/.buildinfo
 %install
 export PBR_VERSION=%{version}
 export SKIP_PIP_INSTALL=1
-%{__python2} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%{__python2} setup.py install --skip-build --root %{buildroot}
 install -d -m 755 %{buildroot}%{_sysconfdir}/neutron/
 mv %{buildroot}/usr/etc/neutron/*.ini %{buildroot}%{_sysconfdir}/neutron/
 
 # Install systemd units
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
+install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/neutron-cisco-apic-host-agent.service
+install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/neutron-cisco-apic-service-agent.service
 
 mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 
@@ -66,16 +70,25 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/*.ini
 %{_bindir}/neutron-cisco-cfg-agent
+%{_bindir}/neutron-cisco-apic-host-agent
+%{_bindir}/neutron-cisco-apic-service-agent
 %{_unitdir}/neutron-cisco-cfg-agent.service
-
+%{_unitdir}/neutron-cisco-apic-host-agent.service
+%{_unitdir}/neutron-cisco-apic-service-agent.service
 
 %post
 %systemd_post neutron-cisco-cfg-agent.service
+%systemd_post neutron-cisco-apic-host-agent.service
+%systemd_post neutron-cisco-apic-service-agent.service
 
 %preun
 %systemd_preun neutron-cisco-cfg-agent.service
+%systemd_preun neutron-cisco-apic-host-agent.service
+%systemd_preun neutron-cisco-apic-service-agent.service
 
 %postun
 %systemd_postun_with_restart neutron-cisco-cfg-agent.service
+%systemd_postun_with_restart neutron-cisco-apic-host-agent.service
+%systemd_postun_with_restart neutron-cisco-apic-service-agent.service
 
 %changelog
