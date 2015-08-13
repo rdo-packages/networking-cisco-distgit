@@ -32,6 +32,9 @@ BuildRequires:	systemd-units
 Requires:       python-babel
 Requires:       python-pbr
 Requires:       openstack-neutron-common
+Requires:       python-UcsSdk
+Requires:       python-ncclient
+Requires:       python-lxml
 
 Requires(post): systemd
 Requires(preun): systemd
