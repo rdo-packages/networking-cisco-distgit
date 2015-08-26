@@ -1,4 +1,4 @@
-%global vendor Cisco
+%global drv_vendor Cisco
 %global srcname networking_cisco
 %global package_name networking-cisco
 %global docpath doc/build/html
@@ -8,7 +8,7 @@
 Name:           python-%{package_name}
 Version:        XXX
 Release:        XXX
-Summary:        %{vendor} OpenStack Neutron driver
+Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{package_name}
@@ -41,7 +41,7 @@ Requires(preun): systemd
 Requires(postun): systemd
 
 %description
-This package contains %{vendor} networking driver for OpenStack Neutron.
+This package contains %{drv_vendor} networking driver for OpenStack Neutron.
 
 %prep
 %setup -q -n %{package_name}-%{upstream_version}
