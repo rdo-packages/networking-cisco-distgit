@@ -57,11 +57,17 @@ export SKIP_PIP_INSTALL=1
 %{__python2} setup.py install --skip-build --root %{buildroot}
 install -d -m 755 %{buildroot}%{_sysconfdir}/neutron/
 mv %{buildroot}/usr/etc/neutron/*.ini %{buildroot}%{_sysconfdir}/neutron/
+install -d -m 755 %{buildroot}%{_sysconfdir}/saf/
+mv %{buildroot}/usr/etc/saf/enabler_conf.ini %{buildroot}%{_sysconfdir}/saf/
 
 # Install systemd units
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/neutron-cisco-apic-host-agent.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/neutron-cisco-apic-service-agent.service
+mv %{buildroot}/usr/etc/saf/init/*.service %{buildroot}%{_unitdir}
+
+# Remove upstart files, they are not needed
+rm %{buildroot}/usr/etc/saf/init/*.conf
 
 mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 
@@ -72,26 +78,38 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{python2_sitelib}/%{srcname}
 %{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/*.ini
+%config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/saf/*.ini
 %{_bindir}/neutron-cisco-cfg-agent
 %{_bindir}/neutron-cisco-apic-host-agent
 %{_bindir}/neutron-cisco-apic-service-agent
+%{_bindir}/fabric-enabler-agent
+%{_bindir}/fabric-enabler-cli
+%{_bindir}/fabric-enabler-server
 %{_unitdir}/neutron-cisco-cfg-agent.service
 %{_unitdir}/neutron-cisco-apic-host-agent.service
 %{_unitdir}/neutron-cisco-apic-service-agent.service
+%{_unitdir}/fabric-enabler-agent.service
+%{_unitdir}/fabric-enabler-server.service
 
 %post
 %systemd_post neutron-cisco-cfg-agent.service
 %systemd_post neutron-cisco-apic-host-agent.service
 %systemd_post neutron-cisco-apic-service-agent.service
+%systemd_post fabric-enabler-agent.service
+%systemd_post fabric-enabler-server.service
 
 %preun
 %systemd_preun neutron-cisco-cfg-agent.service
 %systemd_preun neutron-cisco-apic-host-agent.service
 %systemd_preun neutron-cisco-apic-service-agent.service
+%systemd_preun fabric-enabler-agent.service
+%systemd_preun fabric-enabler-server.service
 
 %postun
 %systemd_postun_with_restart neutron-cisco-cfg-agent.service
 %systemd_postun_with_restart neutron-cisco-apic-host-agent.service
 %systemd_postun_with_restart neutron-cisco-apic-service-agent.service
+%systemd_postun_with_restart fabric-enabler-agent.service
+%systemd_postun_with_restart fabric-enabler-server.service
 
 %changelog
