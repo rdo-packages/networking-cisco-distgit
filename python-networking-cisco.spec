@@ -8,6 +8,7 @@
 Name:           python-%{package_name}
 Version:        XXX
 Release:        XXX
+Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
