@@ -13,12 +13,13 @@ Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{package_name}
-Source0:        https://pypi.python.org/packages/source/n/networking-cisco/networking-cisco-2015.1.2.tar.gz
+Source0:        https://pypi.python.org/packages/source/n/%{package_name}/%{package_name}-%{version}.tar.gz
 Source1:        neutron-cisco-cfg-agent.service
 Source2:        neutron-cisco-apic-host-agent.service
 Source3:        neutron-cisco-apic-service-agent.service
 
 BuildArch:      noarch
+BuildRequires:  git
 BuildRequires:  python2-devel
 BuildRequires:  python-mock
 BuildRequires:  python-neutron-tests
@@ -45,9 +46,16 @@ Requires(postun): systemd
 This package contains %{drv_vendor} networking driver for OpenStack Neutron.
 
 %prep
-%setup -q -n %{package_name}-%{upstream_version}
+%autosetup -n %{package_name}-%{upstream_version} -S git
+
+# Let's handle dependencies ourseleves
+rm -f requirements.txt
+
+# Kill egg-info in order to generate new SOURCES.txt
+rm -rf networking_cisco.egg-info
 
 %build
+export SKIP_PIP_INSTALL=1
 %{__python2} setup.py build
 %{__python2} setup.py build_sphinx
 rm %{docpath}/.buildinfo
