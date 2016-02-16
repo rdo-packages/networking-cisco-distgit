@@ -6,8 +6,8 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:           python-%{package_name}
-Version:        XXX
-Release:        XXX
+Version:        2.0.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
@@ -122,3 +122,5 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %systemd_postun_with_restart fabric-enabler-server.service
 
 %changelog
+* Tue Feb 16 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:2.0.0-1
+- Upstream 2.0.0
