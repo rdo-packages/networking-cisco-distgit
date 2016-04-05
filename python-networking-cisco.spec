@@ -73,6 +73,7 @@ mv %{buildroot}/usr/etc/saf/enabler_conf.ini %{buildroot}%{_sysconfdir}/saf/
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/neutron-cisco-apic-host-agent.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/neutron-cisco-apic-service-agent.service
+# TODO: add service files for neutron-cisco-dhcp-relay and neutron-cisco-dns-relay
 mv %{buildroot}/usr/etc/saf/init/*.service %{buildroot}%{_unitdir}
 
 # Remove upstart files, they are not needed
@@ -94,6 +95,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{_bindir}/fabric-enabler-agent
 %{_bindir}/fabric-enabler-cli
 %{_bindir}/fabric-enabler-server
+%{_bindir}/neutron-cisco-dhcp-relay
+%{_bindir}/neutron-cisco-dns-relay
 %{_unitdir}/neutron-cisco-cfg-agent.service
 %{_unitdir}/neutron-cisco-apic-host-agent.service
 %{_unitdir}/neutron-cisco-apic-service-agent.service
