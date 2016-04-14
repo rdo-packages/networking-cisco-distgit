@@ -1,5 +1,5 @@
-# UUID          Group Name
-6ddfecad023c6f4fa3ac8c4d2583c502ea675a73 	Non-Interactive Users
-d845346f776c092797ee62b4fe4a0bc57bd3a1ee       	networking-cisco-distgit-core
-05e870e7020d202515186c5a5b561587426f9903        	networking-cisco-distgit-ptl
-global:Registered-Users		Registered Users
+# UUID                                  	Group Name
+#
+05e870e7020d202515186c5a5b561587426f9903	openstack/networking-cisco-distgit-ptl
+d845346f776c092797ee62b4fe4a0bc57bd3a1ee	networking-cisco-distgit-core
+global:Registered-Users                 	Registered Users
