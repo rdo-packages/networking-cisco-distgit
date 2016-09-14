@@ -13,7 +13,7 @@ Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{package_name}
-Source0:        https://pypi.python.org/packages/source/n/%{package_name}/%{package_name}-%{version}.tar.gz
+Source0:        https://tarballs.openstack.org/%{package_name}/%{package_name}-%{version}.tar.gz
 Source1:        neutron-cisco-cfg-agent.service
 Source2:        neutron-cisco-apic-host-agent.service
 Source3:        neutron-cisco-apic-service-agent.service
