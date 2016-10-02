@@ -37,6 +37,7 @@ Requires:       openstack-neutron-common
 Requires:       python-UcsSdk
 Requires:       python-ncclient
 Requires:       python-lxml
+Requires:       python-neutron-tests
 
 Requires(post): systemd
 Requires(preun): systemd
