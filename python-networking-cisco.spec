@@ -7,7 +7,7 @@
 
 Name:           python-%{package_name}
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
@@ -126,6 +126,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %systemd_postun_with_restart fabric-enabler-server.service
 
 %changelog
+* Sun Oct  2 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:3.2.0-2
+- Add missing requires to python-neutron-tests
+
 * Wed Sep 14 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:3.2.0-1
 - Update to 3.2.0
 
