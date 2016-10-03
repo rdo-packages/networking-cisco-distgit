@@ -132,3 +132,4 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 * Wed Sep 14 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:3.2.0-1
 - Update to 3.2.0
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/networking-cisco/commit/?id=509eb2c7e310daa6389711bc786ac453af47592b
