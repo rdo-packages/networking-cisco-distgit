@@ -3,17 +3,21 @@
 %global package_name networking-cisco
 %global docpath doc/build/html
 
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+%{!?upstream_version: %global upstream_version %{commit}}
+%global commit 509eb2c7e310daa6389711bc786ac453af47592b
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# DO NOT REMOVE ALPHATAG
+%global alphatag .%{shortcommit}git
 
 Name:           python-%{package_name}
-Version:        3.2.0
-Release:        2%{?dist}
+Version:        3.2.1
+Release:        0.1%{?alphatag}%{?dist}
 Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{package_name}
-Source0:        https://tarballs.openstack.org/%{package_name}/%{package_name}-%{version}.tar.gz
+Source0:        https://github.com/openstack/%{package_name}/archive/%{commit}.tar.gz#/%{package_name}-%{shortcommit}.tar.gz
 Source1:        neutron-cisco-cfg-agent.service
 Source2:        neutron-cisco-apic-host-agent.service
 Source3:        neutron-cisco-apic-service-agent.service
@@ -74,11 +78,18 @@ mv %{buildroot}/usr/etc/saf/enabler_conf.ini %{buildroot}%{_sysconfdir}/saf/
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
 install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/neutron-cisco-apic-host-agent.service
 install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/neutron-cisco-apic-service-agent.service
-# TODO: add service files for cpnr-dhcp-relay and cpnr-dns-relay
+mv %{buildroot}/usr/etc/systemd/system/*.service %{buildroot}%{_unitdir}
 mv %{buildroot}/usr/etc/saf/init/*.service %{buildroot}%{_unitdir}
 
 # Remove upstart files, they are not needed
 rm %{buildroot}/usr/etc/saf/init/*.conf
+rm %{buildroot}/usr/etc/init/*.conf
+
+# Move cpnr-rootwrap config files to its proper location
+mkdir %{buildroot}%{_sysconfdir}/cpnr
+mv %{buildroot}/usr/etc/cpnr/rootwrap.conf %{buildroot}%{_sysconfdir}/cpnr
+mkdir -p %{buildroot}%{_datarootdir}/cpnr/rootwrap/
+mv %{buildroot}/usr/usr/share/cpnr/rootwrap/cpnr.filters %{buildroot}%{_datarootdir}/cpnr/rootwrap/
 
 mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 
@@ -90,19 +101,31 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/*.ini
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/saf/*.ini
+%config(noreplace) %attr(0640, root, cpnr) %{_sysconfdir}/cpnr/*.conf
 %{_bindir}/neutron-cisco-cfg-agent
 %{_bindir}/neutron-cisco-apic-host-agent
 %{_bindir}/neutron-cisco-apic-service-agent
 %{_bindir}/fabric-enabler-agent
 %{_bindir}/fabric-enabler-cli
 %{_bindir}/fabric-enabler-server
-%{_bindir}/cpnr-dhcp-relay
-%{_bindir}/cpnr-dns-relay
+%{_bindir}/cpnr-dhcp-relay-agent
+%{_bindir}/cpnr-dns-relay-agent
+%{_bindir}/cpnr-rootwrap
 %{_unitdir}/neutron-cisco-cfg-agent.service
 %{_unitdir}/neutron-cisco-apic-host-agent.service
 %{_unitdir}/neutron-cisco-apic-service-agent.service
 %{_unitdir}/fabric-enabler-agent.service
 %{_unitdir}/fabric-enabler-server.service
+%{_unitdir}/cpnr-dhcp-relay.service
+%{_unitdir}/cpnr-dns-relay.service
+%{_datarootdir}/cpnr/
+
+%pre
+getent group cpnr >/dev/null || groupadd -r cpnr
+getent passwd cpnr >/dev/null || \
+    useradd -r -g cpnr -d %{_datarootdir}/cpnr -s /sbin/nologin \
+    -c "OpenStack CPNR user for Cisco Networking" cpnr
+exit 0
 
 %post
 %systemd_post neutron-cisco-cfg-agent.service
@@ -110,6 +133,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %systemd_post neutron-cisco-apic-service-agent.service
 %systemd_post fabric-enabler-agent.service
 %systemd_post fabric-enabler-server.service
+%systemd_post cpnr-dns-relay.service
+%systemd_post cpnr-dhdp-relay.service
 
 %preun
 %systemd_preun neutron-cisco-cfg-agent.service
@@ -117,6 +142,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %systemd_preun neutron-cisco-apic-service-agent.service
 %systemd_preun fabric-enabler-agent.service
 %systemd_preun fabric-enabler-server.service
+%systemd_preun cpnr-dns-relay.service
+%systemd_preun cpnr-dhdp-relay.service
 
 %postun
 %systemd_postun_with_restart neutron-cisco-cfg-agent.service
@@ -124,8 +151,14 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %systemd_postun_with_restart neutron-cisco-apic-service-agent.service
 %systemd_postun_with_restart fabric-enabler-agent.service
 %systemd_postun_with_restart fabric-enabler-server.service
+%systemd_postun_with_restart cpnr-dns-relay.service
+%systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+* Wed Oct  5 2016 Alfredo Moralejo <amoralej@redhat.com> - 1:3.2.1-0.1.509eb2cgit
+- Update to post 3.2.0 (509eb2c7e310daa6389711bc786ac453af47592b)
+- Add files for CPNR Plugin
+
 * Sun Oct  2 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:3.2.0-2
 - Add missing requires to python-neutron-tests
 
