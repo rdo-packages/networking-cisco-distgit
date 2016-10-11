@@ -104,6 +104,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{_bindir}/fabric-enabler-agent
 %{_bindir}/fabric-enabler-cli
 %{_bindir}/fabric-enabler-server
+%{_bindir}/cpnr-dhcp-relay
+%{_bindir}/cpnr-dns-relay
 %{_bindir}/cpnr-dhcp-relay-agent
 %{_bindir}/cpnr-dns-relay-agent
 %{_bindir}/cpnr-rootwrap
