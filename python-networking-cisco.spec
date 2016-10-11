@@ -165,3 +165,4 @@ exit 0
 * Wed Sep 14 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:3.2.0-1
 - Update to 3.2.0
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/networking-cisco/commit/?id=a07ee6dd59b56fd0f9d6ca609ab67dc4f3c86948
