@@ -4,14 +4,14 @@
 %global docpath doc/build/html
 
 %{!?upstream_version: %global upstream_version %{commit}}
-%global commit 509eb2c7e310daa6389711bc786ac453af47592b
+%global commit a5e0bc29b97910f0b6fe2e81a5bbb68c81cd4302
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 # DO NOT REMOVE ALPHATAG
 %global alphatag .%{shortcommit}git
 
 Name:           python-%{package_name}
 Version:        3.2.1
-Release:        0.1%{?alphatag}%{?dist}
+Release:        0.2%{?alphatag}%{?dist}
 Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
@@ -108,6 +108,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{_bindir}/fabric-enabler-agent
 %{_bindir}/fabric-enabler-cli
 %{_bindir}/fabric-enabler-server
+%{_bindir}/cpnr-dhcp-relay
+%{_bindir}/cpnr-dns-relay
 %{_bindir}/cpnr-dhcp-relay-agent
 %{_bindir}/cpnr-dns-relay-agent
 %{_bindir}/cpnr-rootwrap
@@ -155,6 +157,10 @@ exit 0
 %systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+* Tue Oct 11 2016 Javier Peña <jpena@redhat.com> - 1:3.2.1-0.2.a5e0bc2git
+- Update to post 3.2.0 (a5e0bc29b97910f0b6fe2e81a5bbb68c81cd4302)
+- Add new CPNR binaries
+
 * Wed Oct  5 2016 Alfredo Moralejo <amoralej@redhat.com> - 1:3.2.1-0.1.509eb2cgit
 - Update to post 3.2.0 (509eb2c7e310daa6389711bc786ac453af47592b)
 - Add files for CPNR Plugin
