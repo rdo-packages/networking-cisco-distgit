@@ -4,14 +4,14 @@
 %global docpath doc/build/html
 
 %{!?upstream_version: %global upstream_version %{commit}}
-%global commit a5e0bc29b97910f0b6fe2e81a5bbb68c81cd4302
+%global commit dbb4b8d30accf4747ecfee0d989b57cb672ce7ee
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 # DO NOT REMOVE ALPHATAG
 %global alphatag .%{shortcommit}git
 
 Name:           python-%{package_name}
-Version:        3.2.1
-Release:        0.2%{?alphatag}%{?dist}
+Version:        4.0.0
+Release:        1%{?alphatag}%{?dist}
 Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
@@ -157,6 +157,9 @@ exit 0
 %systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+* Fri Nov 04 2016 Jon Schlueter <jschluet@redhat.com> 1:4.0.0-1
+- Update to 4.0.0 (dbb4b8d30accf4747ecfee0d989b57cb672ce7ee)
+
 * Tue Oct 11 2016 Javier Peña <jpena@redhat.com> - 1:3.2.1-0.2.a5e0bc2git
 - Update to post 3.2.0 (a5e0bc29b97910f0b6fe2e81a5bbb68c81cd4302)
 - Add new CPNR binaries
