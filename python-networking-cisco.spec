@@ -84,6 +84,7 @@ rm %{buildroot}/usr/etc/init/*.conf
 # Move cpnr-rootwrap config files to its proper location
 mkdir %{buildroot}%{_sysconfdir}/cpnr
 mv %{buildroot}/usr/etc/cpnr/rootwrap.conf %{buildroot}%{_sysconfdir}/cpnr
+mv %{buildroot}/usr/etc/cpnr/cisco_pnr.ini %{buildroot}%{_sysconfdir}/cpnr
 mkdir -p %{buildroot}%{_datarootdir}/cpnr/rootwrap/
 mv %{buildroot}/usr/usr/share/cpnr/rootwrap/cpnr.filters %{buildroot}%{_datarootdir}/cpnr/rootwrap/
 
@@ -98,6 +99,7 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/*.ini
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/saf/*.ini
 %config(noreplace) %attr(0640, root, cpnr) %{_sysconfdir}/cpnr/*.conf
+%config(noreplace) %attr(0640, root, cpnr) %{_sysconfdir}/cpnr/*.ini
 %{_bindir}/neutron-cisco-cfg-agent
 %{_bindir}/neutron-cisco-apic-host-agent
 %{_bindir}/neutron-cisco-apic-service-agent
