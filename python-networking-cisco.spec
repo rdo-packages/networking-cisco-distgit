@@ -29,11 +29,21 @@ BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
 BuildRequires:  python-testrepository
 BuildRequires:  python-testtools
-BuildRequires:	systemd-units
+BuildRequires:  systemd-units
 
 Requires:       python-babel
 Requires:       python-pbr
 Requires:       openstack-neutron-common
+Requires:       python-neutron-lib >= 0.1.0
+Requires:       python-oslo-concurrency >= 3.5.0
+Requires:       python-oslo-config >= 2:3.7.0
+Requires:       python-oslo-db >= 4.1.0
+Requires:       python-oslo-i18n >= 2.1.0
+Requires:       python-oslo-log >= 1.14.0
+Requires:       python-oslo-messaging >= 4.0.0
+Requires:       python-oslo-serialization >= 1.10.0
+Requires:       python-oslo-service >= 1.0.0
+Requires:       python-oslo-utils >= 3.5.0
 Requires:       python-UcsSdk
 Requires:       python-ncclient
 Requires:       python-lxml
