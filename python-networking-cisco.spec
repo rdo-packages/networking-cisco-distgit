@@ -15,8 +15,6 @@ License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{package_name}
 Source0:        https://tarballs.openstack.org/%{package_name}/%{package_name}-%{version}.tar.gz
 Source1:        neutron-cisco-cfg-agent.service
-Source2:        neutron-cisco-apic-host-agent.service
-Source3:        neutron-cisco-apic-service-agent.service
 
 BuildArch:      noarch
 BuildRequires:  git
@@ -82,8 +80,6 @@ mv %{buildroot}/usr/etc/saf/enabler_conf.ini %{buildroot}%{_sysconfdir}/saf/
 
 # Install systemd units
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/neutron-cisco-cfg-agent.service
-install -p -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/neutron-cisco-apic-host-agent.service
-install -p -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/neutron-cisco-apic-service-agent.service
 mv %{buildroot}/usr/etc/systemd/system/*.service %{buildroot}%{_unitdir}
 mv %{buildroot}/usr/etc/saf/init/*.service %{buildroot}%{_unitdir}
 
@@ -111,8 +107,6 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %config(noreplace) %attr(0640, root, cpnr) %{_sysconfdir}/cpnr/*.conf
 %config(noreplace) %attr(0640, root, cpnr) %{_sysconfdir}/cpnr/*.ini
 %{_bindir}/neutron-cisco-cfg-agent
-%{_bindir}/neutron-cisco-apic-host-agent
-%{_bindir}/neutron-cisco-apic-service-agent
 %{_bindir}/fabric-enabler-agent
 %{_bindir}/fabric-enabler-cli
 %{_bindir}/fabric-enabler-server
@@ -122,8 +116,6 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{_bindir}/cpnr-dns-relay-agent
 %{_bindir}/cpnr-rootwrap
 %{_unitdir}/neutron-cisco-cfg-agent.service
-%{_unitdir}/neutron-cisco-apic-host-agent.service
-%{_unitdir}/neutron-cisco-apic-service-agent.service
 %{_unitdir}/fabric-enabler-agent.service
 %{_unitdir}/fabric-enabler-server.service
 %{_unitdir}/cpnr-dhcp-relay.service
@@ -139,8 +131,6 @@ exit 0
 
 %post
 %systemd_post neutron-cisco-cfg-agent.service
-%systemd_post neutron-cisco-apic-host-agent.service
-%systemd_post neutron-cisco-apic-service-agent.service
 %systemd_post fabric-enabler-agent.service
 %systemd_post fabric-enabler-server.service
 %systemd_post cpnr-dns-relay.service
@@ -148,8 +138,6 @@ exit 0
 
 %preun
 %systemd_preun neutron-cisco-cfg-agent.service
-%systemd_preun neutron-cisco-apic-host-agent.service
-%systemd_preun neutron-cisco-apic-service-agent.service
 %systemd_preun fabric-enabler-agent.service
 %systemd_preun fabric-enabler-server.service
 %systemd_preun cpnr-dns-relay.service
@@ -157,8 +145,6 @@ exit 0
 
 %postun
 %systemd_postun_with_restart neutron-cisco-cfg-agent.service
-%systemd_postun_with_restart neutron-cisco-apic-host-agent.service
-%systemd_postun_with_restart neutron-cisco-apic-service-agent.service
 %systemd_postun_with_restart fabric-enabler-agent.service
 %systemd_postun_with_restart fabric-enabler-server.service
 %systemd_postun_with_restart cpnr-dns-relay.service
