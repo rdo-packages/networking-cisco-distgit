@@ -7,8 +7,8 @@
 
 Name:           python-%{package_name}
 Epoch:          1
-Version:        XXX
-Release:        XXX
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
@@ -151,3 +151,6 @@ exit 0
 %systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+* Mon Mar 13 2017 Alfredo Moralejo <amoralej@redhat.com> 1:5.0.0-1
+- Update to 5.0.0
+
