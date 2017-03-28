@@ -1,6 +1,9 @@
-# UUID                                  	Group Name
-#
-05e870e7020d202515186c5a5b561587426f9903	openstack/networking-cisco-distgit-ptl
-63673ea7f2ae6a5666566b1ea9f14e473d00f5a9	rdo-core
-d845346f776c092797ee62b4fe4a0bc57bd3a1ee	openstack/networking-cisco-distgit-core
-global:Registered-Users                 	Registered Users
+# UUID Group Name
+global:Registered-Users	Registered Users
+4572c517702492251ad622a289176552a8acbbb2	rdo-superusers
+global:Anonymous-Users	Anonymous Users
+1a6a120fb1a281b21a523b2ee717b2db54dda695	openstack/networking-cisco-ptl
+478c51ca79e860fec167bb32d9bb6f54aa257327	openstack/networking-cisco-core
+05a678d3d4a168e149d5e8a0063bbd1b1c5526da	Administrators
+401cf37bee35d1c809d4d957e55f2a304f8eed69	rdo-provenpackagers
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73	Non-Interactive Users
