@@ -25,6 +25,8 @@ BuildRequires:  python-oslo-sphinx
 BuildRequires:  python-pbr
 BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
+BuildRequires:  python-reno
+BuildRequires:  python-sphinx_rtd_theme
 BuildRequires:  python-testrepository
 BuildRequires:  python-testtools
 BuildRequires:  systemd-units
