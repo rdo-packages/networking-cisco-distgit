@@ -56,6 +56,17 @@ Requires(postun): systemd
 %description
 This package contains %{drv_vendor} networking driver for OpenStack Neutron.
 
+
+%package -n python-%{package_name}-tests-tempest
+Summary:    %{name} Tempest plugin
+Requires:   python-%{package_name} = %{epoch}:%{version}-%{release}
+Requires:   python-tempest-tests
+Requires:   python-neutron-tests
+Requires:   python-testtools
+
+%description -n python-%{package_name}-tests-tempest
+It contains the tempest plugin for %{srcname}
+
 %prep
 %autosetup -n %{package_name}-%{upstream_version} -S git
 
@@ -98,6 +109,9 @@ mv %{buildroot}/usr/usr/share/cpnr/rootwrap/cpnr.filters %{buildroot}%{_dataroot
 
 mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 
+# Create a fake tempest plugin entry point
+%py2_entrypoint %{srcname} %{package_name}
+
 %files
 %license LICENSE
 %doc README.rst
@@ -123,6 +137,12 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %{_unitdir}/cpnr-dhcp-relay.service
 %{_unitdir}/cpnr-dns-relay.service
 %{_datarootdir}/cpnr/
+
+%files -n python-%{package_name}-tests-tempest
+%license LICENSE
+%doc networking_cisco_tempest_plugin/README.rst
+%{python2_sitelib}/networking_cisco_tempest_plugin
+%{python2_sitelib}/%{srcname}_tests.egg-info
 
 %pre
 getent group cpnr >/dev/null || groupadd -r cpnr
