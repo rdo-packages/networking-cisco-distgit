@@ -50,9 +50,7 @@ Requires:       python-ncclient
 Requires:       python-lxml
 Requires:       python-neutron-tests
 
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+%{?systemd_requires}
 
 %description
 This package contains %{drv_vendor} networking driver for OpenStack Neutron.
