@@ -29,6 +29,7 @@ BuildRequires:  python-reno
 BuildRequires:  python-sphinx_rtd_theme
 BuildRequires:  python-testrepository
 BuildRequires:  python-testtools
+BuildRequires:  openstack-macros
 BuildRequires:  systemd-units
 
 Requires:       python-babel
@@ -72,7 +73,7 @@ It contains the tempest plugin for %{srcname}
 %autosetup -n %{package_name}-%{upstream_version} -S git
 
 # Let's handle dependencies ourseleves
-rm -f requirements.txt
+%py_req_cleanup
 
 # Kill egg-info in order to generate new SOURCES.txt
 rm -rf networking_cisco.egg-info
