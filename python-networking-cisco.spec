@@ -78,7 +78,7 @@ rm -rf networking_cisco.egg-info
 %build
 export SKIP_PIP_INSTALL=1
 %{__python2} setup.py build
-%{__python2} setup.py build_sphinx
+%{__python2} setup.py build_sphinx -b html
 rm %{docpath}/.buildinfo
 
 %install
