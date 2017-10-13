@@ -59,7 +59,7 @@ This package contains %{drv_vendor} networking driver for OpenStack Neutron.
 %package -n python-%{package_name}-tests-tempest
 Summary:    %{name} Tempest plugin
 Requires:   python-%{package_name} = %{epoch}:%{version}-%{release}
-Requires:   python-tempest-tests
+Requires:   python-tempest
 Requires:   python-neutron-tests
 Requires:   python-testtools
 
