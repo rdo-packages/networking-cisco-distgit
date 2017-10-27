@@ -172,3 +172,4 @@ exit 0
 %systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/networking-cisco/commit/?id=7b373bfd6e9a58e8342e446816d7debe1820a170
