@@ -79,8 +79,9 @@ rm -rf networking_cisco.egg-info
 %build
 export SKIP_PIP_INSTALL=1
 %{__python2} setup.py build
-%{__python2} setup.py build_sphinx
-rm %{docpath}/.buildinfo
+# (TODO) uncomment after doc build is fix with neutron from master
+#%{__python2} setup.py build_sphinx
+#rm %{docpath}/.buildinfo
 
 %install
 export PBR_VERSION=%{version}
@@ -115,7 +116,8 @@ mkdir -p %{buildroot}/%{_sysconfdir}/neutron/conf.d/neutron-cisco-cfg-agent
 %files
 %license LICENSE
 %doc README.rst
-%doc %{docpath}
+# (TODO) uncomment after doc build is fix with neutron from master
+#%doc %{docpath}
 %{python2_sitelib}/%{srcname}
 %{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info
 %config(noreplace) %attr(0640, root, neutron) %{_sysconfdir}/neutron/*.ini
