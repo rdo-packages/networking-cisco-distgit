@@ -181,3 +181,4 @@ exit 0
 * Mon Mar 13 2017 Alfredo Moralejo <amoralej@redhat.com> 1:5.0.0-1
 - Update to 5.0.0
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/networking-cisco/commit/?id=a50f581205181ff7d4400b522b08a638b38aa1ae
