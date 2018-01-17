@@ -6,7 +6,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:           python-%{package_name}
-Version:        4.0.0
+Version:        5.5.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        %{drv_vendor} OpenStack Neutron driver
@@ -175,6 +175,9 @@ exit 0
 %systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+* Wed Jan 17 2018 RDO <dev@lists.rdoproject.org> 1:5.5.0-1
+- Update to 5.5.0
+
 * Fri Nov 04 2016 Jon Schlueter <jschluet@redhat.com> 1:4.0.0-1
 - Update to 4.0.0 (dbb4b8d30accf4747ecfee0d989b57cb672ce7ee)
 
