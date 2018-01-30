@@ -30,7 +30,7 @@ BuildRequires:  python-sphinx_rtd_theme
 BuildRequires:  python-testrepository
 BuildRequires:  python-testtools
 BuildRequires:  openstack-macros
-BuildRequires:  systemd-units
+BuildRequires:  systemd
 
 Requires:       python-babel
 Requires:       python-pbr
