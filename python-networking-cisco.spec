@@ -8,7 +8,7 @@
 Name:           python-%{package_name}
 Epoch:          1
 Version:        5.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{drv_vendor} OpenStack Neutron driver
 
 License:        ASL 2.0
@@ -20,7 +20,6 @@ BuildArch:      noarch
 BuildRequires:  git
 BuildRequires:  python2-devel
 BuildRequires:  python-mock
-BuildRequires:  python-neutron-tests
 BuildRequires:  python-oslo-sphinx
 BuildRequires:  python-pbr
 BuildRequires:  python-setuptools
@@ -47,7 +46,6 @@ Requires:       python-oslo-utils >= 3.5.0
 Requires:       python-UcsSdk
 Requires:       python-ncclient
 Requires:       python-lxml
-Requires:       python-neutron-tests
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -61,7 +59,6 @@ This package contains %{drv_vendor} networking driver for OpenStack Neutron.
 Summary:    %{name} Tempest plugin
 Requires:   python-%{package_name} = %{epoch}:%{version}-%{release}
 Requires:   python-tempest
-Requires:   python-neutron-tests
 Requires:   python-testtools
 
 %description -n python-%{package_name}-tests-tempest
@@ -175,6 +172,9 @@ exit 0
 %systemd_postun_with_restart cpnr-dhdp-relay.service
 
 %changelog
+* Tue Apr 24 2018 Alfredo Moralejo <amoralej@redhat.com> 1:5.5.2-2
+- Remove python-neutron-tests as requirement
+
 * Fri Feb 09 2018 RDO <dev@lists.rdoproject.org> 1:5.5.2-1
 - Update to 5.5.2
 
