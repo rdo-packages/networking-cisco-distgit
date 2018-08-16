@@ -47,6 +47,7 @@ Requires:       python-oslo-utils >= 3.5.0
 Requires:       python-UcsSdk
 Requires:       python-ncclient
 Requires:       python-lxml
+Requires:       python-ucsmsdk
 
 %{?systemd_requires}
 
