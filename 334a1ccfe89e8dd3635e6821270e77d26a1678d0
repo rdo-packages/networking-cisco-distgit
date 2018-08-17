@@ -22,6 +22,30 @@
       "revId": "334a1ccfe89e8dd3635e6821270e77d26a1678d0",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_46e205d7",
+        "filename": "python-networking-cisco.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 297
+      },
+      "writtenOn": "2018-08-17T15:15:33Z",
+      "side": 1,
+      "message": "Support for python-UcsSdk is in the deprecation period for networking-cisco tag 6.1.0. I will remove this when we move to tag 6.2.0 for Queens which would be coming up shortly.",
+      "parentUuid": "9abe1de1_e672397c",
+      "range": {
+        "startLine": 47,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "334a1ccfe89e8dd3635e6821270e77d26a1678d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
