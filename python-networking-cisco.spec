@@ -48,6 +48,7 @@ Requires:       python-UcsSdk
 Requires:       python-ncclient
 Requires:       python-lxml
 Requires:       python-neutron-tests
+Requires:       python-ucsmsdk
 
 Requires(post): systemd
 Requires(preun): systemd
