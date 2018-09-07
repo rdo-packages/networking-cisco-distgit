@@ -29,6 +29,7 @@ BuildRequires:  python-sphinx_rtd_theme
 BuildRequires:  python-testrepository
 BuildRequires:  python-testtools
 BuildRequires:  openstack-macros
+BuildRequires:  python-oslo-config
 BuildRequires:  systemd
 
 Requires:       python-babel
@@ -80,9 +81,8 @@ rm -rf networking_cisco.egg-info
 %build
 export SKIP_PIP_INSTALL=1
 %{__python2} setup.py build
-# (TODO) uncomment after doc build is fix with neutron from master
-#%{__python2} setup.py build_sphinx -b html
-#rm %{docpath}/.buildinfo
+%{__python2} setup.py build_sphinx -b html
+rm %{docpath}/.buildinfo
 
 %install
 export PBR_VERSION=%{version}
