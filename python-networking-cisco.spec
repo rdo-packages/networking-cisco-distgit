@@ -49,7 +49,11 @@ Requires:       python-ncclient
 Requires:       python-lxml
 Requires:       python-ucsmsdk
 
+%if 0%{?rhel} && 0%{?rhel} < 8
 %{?systemd_requires}
+%else
+%{?systemd_ordering} # does not exist on EL7
+%endif
 
 %description
 This package contains %{drv_vendor} networking driver for OpenStack Neutron.
