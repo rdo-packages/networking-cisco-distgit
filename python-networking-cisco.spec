@@ -31,9 +31,10 @@ BuildRequires:  python-testtools
 BuildRequires:  openstack-macros
 BuildRequires:  systemd
 
-Requires:       python-babel
-Requires:       python-pbr
+Requires:       python-babel >= 1.3
+Requires:       python-pbr >= 1.8
 Requires:       openstack-neutron-common
+Requires:       python-neutronclient
 Requires:       python-neutron-lib >= 0.1.0
 Requires:       python-oslo-concurrency >= 3.5.0
 Requires:       python-oslo-config >= 2:3.7.0
@@ -44,10 +45,11 @@ Requires:       python-oslo-messaging >= 4.0.0
 Requires:       python-oslo-serialization >= 1.10.0
 Requires:       python-oslo-service >= 1.0.0
 Requires:       python-oslo-utils >= 3.5.0
+Requires:       python-pika >= 0.10.0
 Requires:       python-UcsSdk
-Requires:       python-ncclient
-Requires:       python-lxml
-Requires:       python-ucsmsdk
+Requires:       python-ncclient >= 0.4.6
+Requires:       python-lxml >= 3.3.3
+Requires:       python-ucsmsdk >= 0.9.3.1
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %{?systemd_requires}
