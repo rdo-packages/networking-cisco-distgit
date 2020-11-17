@@ -17,7 +17,7 @@ Source0:        https://tarballs.openstack.org/%{package_name}/%{package_name}-%
 Source1:        neutron-cisco-cfg-agent.service
 
 BuildArch:      noarch
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  python2-devel
 BuildRequires:  python-mock
 BuildRequires:  python-oslo-sphinx
